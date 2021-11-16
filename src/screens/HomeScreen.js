@@ -31,6 +31,9 @@ const HomeScreen = ({navigation}) => {
             sermonsList={sermonsList}
             allLoaded={allLoaded}
             navigation={navigation}
+            onPress={uri => {
+              navigation.navigate('Video', {id: uri});
+            }}
             loadMoreResults={() => loadMoreResults()}
           />
         </View>

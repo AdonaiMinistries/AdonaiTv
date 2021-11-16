@@ -26,7 +26,7 @@ const VideoScreen = ({navigation}) => {
         <Video
           fullscreen={true}
           controls={true}
-          style={{flex: 1}}
+          style={{height: '100%', width: '100%'}}
           source={{uri: `${url}`}} // Can be a URL or a local file.
           ref={ref => {
             this.player = ref;

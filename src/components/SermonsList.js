@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 
-const SermonsList = ({sermonsList, allLoaded, loadMoreResults, navigation}) => {
+const SermonsList = ({sermonsList, allLoaded, loadMoreResults, onPress}) => {
   return (
     <FlatList
       nestedScrollEnabled={true}
@@ -30,7 +30,7 @@ const SermonsList = ({sermonsList, allLoaded, loadMoreResults, navigation}) => {
         });
         return (
           <TouchableHighlight
-            onPress={() => navigation.navigate('Video', {id: item.uri})}
+            onPress={() => onPress(item.uri)}
             style={{margin: 10}}>
             <View style={styles.videoContainer}>
               <Image
