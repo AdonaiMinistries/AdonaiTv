@@ -1,13 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  ActivityIndicator,
-  TouchableHighlight,
-  Dimensions,
-  Image,
-} from 'react-native';
+import {StyleSheet, View, ActivityIndicator} from 'react-native';
 import SermonsList from '../components/SermonsList';
 import useSermons from '../hook/useSermons';
 

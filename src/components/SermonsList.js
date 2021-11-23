@@ -7,10 +7,13 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
+import FocusableHighlight from './../utils/focusable/FocusableHighlight';
+import Style from '../styles/Style';
 
 const SermonsList = ({sermonsList, allLoaded, loadMoreResults, onPress}) => {
   return (
     <FlatList
+      underlayColor={'black'}
       nestedScrollEnabled={true}
       data={sermonsList}
       numColumns={4}
@@ -28,18 +31,20 @@ const SermonsList = ({sermonsList, allLoaded, loadMoreResults, onPress}) => {
             return e;
           }
         });
+        let key = 'flat_list_item_' + item.uri;
         return (
-          <TouchableHighlight
+          <FocusableHighlight
             onPress={() => onPress(item.uri)}
-            style={{margin: 10}}>
+            style={{margin: 10}}
+            nativeID={key}
+            key={key}>
             <View style={styles.videoContainer}>
               <Image
-                style={styles.focusedImage}
                 style={styles.image}
                 source={{uri: `${img.link_with_play_button}`}}
               />
             </View>
-          </TouchableHighlight>
+          </FocusableHighlight>
         );
       }}
     />
