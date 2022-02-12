@@ -1,66 +1,52 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  TouchableHighlight,
-  Image,
-  Dimensions,
-} from 'react-native';
-import FocusableHighlight from './../utils/focusable/FocusableHighlight';
-import Style from '../styles/Style';
+import {useState} from 'react';
+import {Button, FlatList, Modal, Text} from 'react-native';
+import ModalComponent from './ModalComponent';
+import SermonItem from './SermonItem';
 
 const SermonsList = ({sermonsList, allLoaded, loadMoreResults, onPress}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentSermon, setCurrentSermon] = useState([]);
   return (
-    <FlatList
-      underlayColor={'black'}
-      nestedScrollEnabled={true}
-      data={sermonsList}
-      numColumns={4}
-      keyExtractor={video => `${video.name + video.uri}`}
-      scrollEventThrottle={350}
-      onEndReached={info => {
-        if (allLoaded === false) {
-          loadMoreResults();
-        }
-      }}
-      onEndReachedThreshold={0.3}
-      renderItem={({item}) => {
-        const img = item.pictures.sizes.find(e => {
-          if (e.width === 640) {
-            return e;
+    <>
+      <FlatList
+        nestedScrollEnabled={true}
+        data={sermonsList}
+        numColumns={4}
+        keyExtractor={video => `${video.name + video.uri}`}
+        scrollEventThrottle={350}
+        onEndReached={() => {
+          if (allLoaded === false) {
+            loadMoreResults();
           }
-        });
-        let key = 'flat_list_item_' + item.uri;
-        return (
-          <FocusableHighlight
-            onPress={() => onPress(item.uri)}
-            style={{margin: 10}}
-            nativeID={key}
-            key={key}>
-            <View style={styles.videoContainer}>
-              <Image
-                style={styles.image}
-                source={{uri: `${img.link_with_play_button}`}}
-              />
-            </View>
-          </FocusableHighlight>
-        );
-      }}
-    />
+        }}
+        onEndReachedThreshold={0.3}
+        renderItem={({item, index}) => {
+          const img = item.pictures.sizes.find(e => {
+            if (e.width === 640) {
+              return e;
+            }
+          });
+          return (
+            <SermonItem
+              onPress={sermon => {
+                setModalVisible(true);
+                setCurrentSermon(sermon);
+              }}
+              data={item}
+              image={`${img.link_with_play_button}`}
+            />
+          );
+        }}
+      />
+      <ModalComponent
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        uri={currentSermon.uri}
+        isLive={false}
+      />
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  videoContainer: {
-    height: Dimensions.get('window').height / 5,
-    width: Dimensions.get('window').width / 5,
-    margin: 10,
-    flexDirection: 'row',
-  },
-  image: {
-    flex: 1,
-  },
-});
 
 export default SermonsList;

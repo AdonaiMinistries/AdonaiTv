@@ -10,6 +10,10 @@ PODS:
     - React-jsi (= 0.64.2-4)
     - ReactCommon/turbomodule/core (= 0.64.2-4)
   - glog (0.3.5)
+  - lottie-ios (3.1.8)
+  - lottie-react-native (3.5.0):
+    - lottie-ios (~> 3.1.8)
+    - React
   - RCT-Folly (2020.01.13.00):
     - boost-for-react-native
     - DoubleConversion
@@ -261,6 +265,8 @@ DEPENDENCIES:
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - lottie-ios (from `../node_modules/lottie-ios`)
+  - lottie-react-native (from `../node_modules/lottie-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -305,6 +311,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/React/FBReactNativeSpec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  lottie-ios:
+    :path: "../node_modules/lottie-ios"
+  lottie-react-native:
+    :path: "../node_modules/lottie-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -368,6 +378,8 @@ SPEC CHECKSUMS:
   FBLazyVector: a4376cfdaffcb31c5bccc46e40a16a4c1cb32f53
   FBReactNativeSpec: 2dba70366ccd0bf7eadace86ae2b9c7872654fba
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
+  lottie-react-native: 1fb4ce21d6ad37dab8343eaff8719df76035bd93
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: b3040967a3c7afea22f022fea4f3385e6e376838
   RCTTypeSafety: 3b7ba98384d6d4d3a3fad21fa38d6bc403b9140e
@@ -397,6 +409,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   Yoga: e6fad7d759aada82718ccebaaeef8113c431d41e
 
-PODFILE CHECKSUM: 26d9f66bd29f5a42fd50aaa629194d9014b7ffda
+PODFILE CHECKSUM: 898e8ddf0b9ff137d5c8ce2dfd271438d0a4bfcc
 
 COCOAPODS: 1.11.2
