@@ -19,14 +19,18 @@
     "ios": "0.0.1",
     "lottie-ios": "^3.1.8",
     "lottie-react-native": "^3.5.0",
+    "mobx": "^6.4.2",
+    "mobx-react": "^7.3.0",
     "pod": "^0.9.0",
     "react": "17.0.1",
     "react-native": "npm:react-native-tvos@0.64.2-4",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-media-controls": "^2.3.0",
+    "react-native-progress": "^5.0.0",
+    "react-native-progress-bar": "^0.1.2",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-slider": "^0.11.0",
-    "react-native-vector-icons": "9.0.0",
+    "react-native-vector-icons": "^9.0.0",
     "react-native-video": "^5.2.0",
     "react-native-video-controls": "^2.8.1",
     "react-native-video-player": "0.12.0",
@@ -34,7 +38,8 @@
     "react-navigation-stack": "^2.10.4",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "shaka-player": "^3.3.1"
+    "shaka-player": "^3.3.1",
+    "uuidv4": "6.2.13"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
@@ -48,5 +53,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
   }
 }

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {component} from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import DetailScreen from './src/screens/DetailsScreen';
 import VideoScreen from './src/screens/VideoScreen';
+import {SermonsProvider} from './src/provider/SermonsProvider';
+import {AppConfigProvider} from './src/provider/AppConfigProvider';
+import {StateProvider} from './src/provider/StateProvider';
 
 const navigator = createStackNavigator(
   {
@@ -21,8 +24,25 @@ const navigator = createStackNavigator(
   },
 );
 
-const App = createAppContainer(navigator);
+const AppContainer = createAppContainer(navigator);
 
-export default () => {
-  return <App />;
+const App = () => {
+  return (
+    <StateProvider>
+      <AppContainer />
+    </StateProvider>
+  );
 };
+// const App = () => {
+//   return (
+//     <StateProvider>
+//       <SermonsProvider>
+//         <AppConfigProvider>
+//           <AppContainer />
+//         </AppConfigProvider>
+//       </SermonsProvider>
+//     </StateProvider>
+//   );
+// };
+
+export default App;
