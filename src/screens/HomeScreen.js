@@ -38,11 +38,6 @@ const HomeScreen = props => {
   return (
     <View style={styles.container}>
       {(() => {
-        console.log(`Homescreen - ${ctx.state.currentState}`);
-        console.log('HomeScreen - ', ctx.state.appconfig.config);
-
-        console.log(ctx.state.sermons.nextpage);
-
         switch (ctx.state.currentState) {
           case INIT_STATE:
           case CONFIG_LOADING:
@@ -57,7 +52,7 @@ const HomeScreen = props => {
           case SERMONS_LOADED:
             return (
               <View style={{height: '100%', width: '100%'}}>
-                <HomeScreenContent />
+                <HomeScreenContent sermonsList={ctx.state.sermons.list} />
               </View>
             );
         }

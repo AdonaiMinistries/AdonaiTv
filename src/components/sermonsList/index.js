@@ -1,25 +1,27 @@
 import React from 'react';
-import {useState} from 'react';
-import {Button, FlatList, Modal, Text} from 'react-native';
-import ModalComponent from './ModalComponent';
-import SermonItem from './SermonItem';
+import {FlatList, View} from 'react-native';
+import SermonItem from '../sermonItem';
 
-const SermonsList = ({sermonsList, allLoaded, loadMoreResults, onPress}) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [currentSermon, setCurrentSermon] = useState([]);
+const SermonsList = props => {
+  // const [modalVisible, setModalVisible] = useState(false);
+  // const [currentSermon, setCurrentSermon] = useState([]);
+  const {sermonsList} = props;
+  console.log('Sermons List ...');
+  var tmpList = [];
+  sermonsList.forEach(i => tmpList.push(i));
   return (
-    <>
+    <View>
       <FlatList
         nestedScrollEnabled={true}
-        data={sermonsList}
+        data={tmpList}
         numColumns={4}
         keyExtractor={video => `${video.name + video.uri}`}
         scrollEventThrottle={350}
-        onEndReached={() => {
-          if (allLoaded === false) {
-            loadMoreResults();
-          }
-        }}
+        // onEndReached={() => {
+        //   if (allLoaded === false) {
+        //     loadMoreResults();
+        //   }
+        // }}
         onEndReachedThreshold={0.3}
         renderItem={({item, index}) => {
           const img = item.pictures.sizes.find(e => {
@@ -30,8 +32,8 @@ const SermonsList = ({sermonsList, allLoaded, loadMoreResults, onPress}) => {
           return (
             <SermonItem
               onPress={sermon => {
-                setModalVisible(true);
-                setCurrentSermon(sermon);
+                // setModalVisible(true);
+                // setCurrentSermon(sermon);
               }}
               data={item}
               image={`${img.link_with_play_button}`}
@@ -39,13 +41,13 @@ const SermonsList = ({sermonsList, allLoaded, loadMoreResults, onPress}) => {
           );
         }}
       />
-      <ModalComponent
+      {/* <ModalComponent
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         uri={currentSermon.uri}
         isLive={false}
-      />
-    </>
+      /> */}
+    </View>
   );
 };
 

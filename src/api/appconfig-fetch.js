@@ -4,7 +4,6 @@ import {http_constants} from '../constants/httpConst';
 
 const FetchFromBackend = async () => {
   let rsp = null;
-  console.log('Fetching from backend ...');
 
   try {
     rsp = await fetch(http_constants.appConfigUrl);
@@ -29,7 +28,6 @@ const FetchAppConfig = ctx => {
       }
 
       /* Update appconfig in ctx */
-      console.log(rsp);
       ctx.dispatch({
         type: 'AddAppConfig',
         appconfig: rsp,

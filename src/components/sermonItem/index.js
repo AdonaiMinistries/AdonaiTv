@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+// import styles from './styles.js';
 
 const SermonItem = forwardRef((props, ref) => {
   const [focused, setFocused] = useState(false);
@@ -35,7 +36,7 @@ const SermonItem = forwardRef((props, ref) => {
           styles.videoContainer,
           focused ? {borderWidth: 2, opacity: 1} : null,
         ]}>
-        <Image style={styles.image} source={{uri: props.image}} />
+        <Image style={styles.image} source={{uri: `${props.image}`}} />
       </View>
     </TouchableHighlight>
   );
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   videoContainer: {
     height: Dimensions.get('window').height / 4.5,
     width: Dimensions.get('window').width / 4.5,
-    opacity: 0.5,
+    opacity: 0.8,
     flexDirection: 'row',
   },
   image: {

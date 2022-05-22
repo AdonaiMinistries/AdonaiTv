@@ -25,7 +25,6 @@ const FetchSermons = ctx => {
   )
     .then((rsp, err) => {
       if (ctx.state.sermons.nextpage === rsp.paging.next) {
-        console.log('returning as current and next are same');
         return;
       }
       /**

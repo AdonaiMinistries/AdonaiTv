@@ -55,7 +55,6 @@ const reducer = (state, action) => {
 
       action.sermons.forEach(item => {
         if (tmpMap.has(item.uri) === false) {
-          console.log(item.uri);
           tmpMap.set(item.uri, item);
         }
       });

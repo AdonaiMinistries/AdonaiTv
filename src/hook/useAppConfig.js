@@ -58,8 +58,6 @@ export default () => {
   };
 
   const updateContext = resp => {
-    console.log(`Updating the context`);
-    console.log(resp);
     appConfig.setToken(resp.config.token);
     appConfig.setLiveStream(resp.config.stream.link);
     appConfig.setNextStreamDate(resp.config.stream.nextStream);

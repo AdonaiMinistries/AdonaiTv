@@ -19,7 +19,6 @@ const getSermonVideoUrl = async (vidId, setUrl, setLoaded) => {
       // setUrl(resp.data.request.files.progressive[4].url);
       resp.data.request.files.progressive.find(e => {
         if (e.quality === '720p') {
-          console.log(e.url);
           setUrl(e.url);
         }
       });
@@ -35,7 +34,6 @@ const getLiveVideoUrl = async (setUrl, setLoaded, setShowVideo) => {
   vimeo
     .get(`https://www.adonaichurch.in/app-config.json`)
     .then(resp => {
-      console.log(resp.data);
       setLoaded(true);
       setUrl(resp.data.config.stream.link);
       setShowVideo(true);
