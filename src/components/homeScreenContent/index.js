@@ -6,7 +6,7 @@ import LiveButton from '../liveButton';
 import SermonsList from '../sermonsList';
 
 function HomeScreenContent(props) {
-  const {sermonsList} = props;
+  const {sermonsList, navigateToDetailsScreen, navigation} = props;
   return (
     <>
       <ImageBackground
@@ -17,26 +17,23 @@ function HomeScreenContent(props) {
           <Image source={image_const.whiteLogo} style={styles.logo} />
         </View>
         {/* Live button */}
-        <View style={{flexDirection: 'column'}}>
+        <View
+          style={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            paddingTop: '17%',
+          }}>
           <LiveButton />
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <View>
-              <Text style={{fontSize: 30, color: 'white'}}>SERMONS</Text>
+          <View style={styles.sermonsContainer}>
+            <View style={{paddingHorizontal: '3%'}}>
+              <Text style={styles.sermonText}>SERMONS</Text>
             </View>
-            <View
-              style={{
-                flex: 1,
-                height: 1,
-                backgroundColor: 'white',
-                fontFamily: 'Gotham-Regular',
-              }}
-            />
+            <View style={styles.divider} />
           </View>
-          <SermonsList sermonsList={sermonsList} />
+          <SermonsList
+            sermonsList={sermonsList}
+            navigateToDetailsScreen={navigateToDetailsScreen}
+          />
         </View>
       </ImageBackground>
     </>

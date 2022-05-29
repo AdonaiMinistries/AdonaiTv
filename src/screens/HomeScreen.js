@@ -24,6 +24,10 @@ const HomeScreen = props => {
     );
   };
 
+  const navigateToDetailsScreen = uri => {
+    props.navigation.navigate('Details', {id: uri});
+  };
+
   // <ImageBackground
   //   source={image_const.backgroundImage}
   //   style={styles.backgroundImage}>
@@ -52,7 +56,11 @@ const HomeScreen = props => {
           case SERMONS_LOADED:
             return (
               <View style={{height: '100%', width: '100%'}}>
-                <HomeScreenContent sermonsList={ctx.state.sermons.list} />
+                <HomeScreenContent
+                  sermonsList={ctx.state.sermons.list}
+                  navigateToDetailsScreen={navigateToDetailsScreen}
+                  navigation={props.navigation}
+                />
               </View>
             );
         }

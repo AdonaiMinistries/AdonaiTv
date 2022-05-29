@@ -5,7 +5,7 @@ import SermonItem from '../sermonItem';
 const SermonsList = props => {
   // const [modalVisible, setModalVisible] = useState(false);
   // const [currentSermon, setCurrentSermon] = useState([]);
-  const {sermonsList} = props;
+  const {sermonsList, navigateToDetailsScreen} = props;
   console.log('Sermons List ...');
   var tmpList = [];
   sermonsList.forEach(i => tmpList.push(i));
@@ -34,6 +34,7 @@ const SermonsList = props => {
               onPress={sermon => {
                 // setModalVisible(true);
                 // setCurrentSermon(sermon);
+                navigateToDetailsScreen(item.uri);
               }}
               data={item}
               image={`${img.link_with_play_button}`}

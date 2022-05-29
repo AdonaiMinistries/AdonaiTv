@@ -19,4 +19,20 @@ export default styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'contain',
   },
+  sermonsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sermonText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'white',
+    fontFamily: 'Gotham-Regular',
+  },
+  divider: {
+    flex: 1,
+    height: 1,
+    backgroundColor: 'white',
+    alignSelf: 'center',
+  },
 });
