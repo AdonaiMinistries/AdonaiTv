@@ -8,16 +8,20 @@ const LiveButton = props => {
 
   return (
     <View
-      style={[
-        styles.liveButton,
-        liveFocus ? {backgroundColor: 'white'} : null,
-      ]}>
+      style={[styles.container, liveFocus ? {backgroundColor: 'white'} : null]}>
       <TouchableHighlight
+        style={styles.button}
+        hasTVPreferredFocus={true}
         onFocus={() => {
           console.log('Live button focus');
           setLiveFocus(true);
         }}
-        onBlur={() => setLiveFocus(false)}>
+        onBlur={() => setLiveFocus(false)}
+        onPress={() => {
+          // Display overlay component.
+          console.log('Live button pressed');
+          props.setOverlay(true);
+        }}>
         <Text
           style={[
             styles.liveText,

@@ -24,7 +24,7 @@ const FetchSermons = ctx => {
     ctx.state.appconfig.config.token,
   )
     .then((rsp, err) => {
-      if (ctx.state.sermons.nextpage === rsp.paging.next) {
+      if (rsp && ctx.state.sermons.nextpage === rsp.paging.next) {
         return;
       }
       /**

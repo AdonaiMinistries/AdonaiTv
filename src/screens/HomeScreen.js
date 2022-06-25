@@ -1,5 +1,11 @@
-import React, {useContext} from 'react';
-import {StyleSheet, View, Text, ActivityIndicator} from 'react-native';
+import React, {useContext, useEffect} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+  BackHandler,
+} from 'react-native';
 import {
   CONFIG_LOADED,
   CONFIG_LOADING,
@@ -27,17 +33,6 @@ const HomeScreen = props => {
   const navigateToDetailsScreen = uri => {
     props.navigation.navigate('Details', {id: uri});
   };
-
-  // <ImageBackground
-  //   source={image_const.backgroundImage}
-  //   style={styles.backgroundImage}>
-  //   {/* Logo */}
-  //   <View style={styles.logoContainer}>
-  //     <Image source={image_const.whiteLogo} style={styles.logo} />
-  //   </View>
-  //   {/* Live button. */}
-  //   <LiveButton />
-  // </ImageBackground>
 
   return (
     <View style={styles.container}>

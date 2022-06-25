@@ -6,11 +6,7 @@ const StateContext = React.createContext();
 const initalState = {
   currentState: INIT_STATE,
   error: '',
-  appconfig: {
-    token: '',
-    liveStream: '',
-    nextStreamDate: '',
-  },
+  appconfig: {},
   sermons: {
     list: {},
     nextpage: '',

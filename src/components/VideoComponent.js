@@ -6,8 +6,8 @@ import {
   Text,
   Dimensions,
   Animated,
-  TouchableWithoutFeedback,
   TVEventHandler,
+  BackHandler,
 } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -62,6 +62,7 @@ const VideoComponent = props => {
 
   const onEnd = () => {
     setPaused(true);
+    props.onExit();
   };
 
   const handlePlayPauseButton = () => {
@@ -124,6 +125,59 @@ const VideoComponent = props => {
     outputRange: [0, 1],
   });
 
+  const progressBar = () => {
+    return (
+      <View style={styles.progressBarContainer}>
+        <Text style={{color: 'white', paddingRight: '1%'}}>
+          {toTime(Math.floor(progress * duration))}
+        </Text>
+        <View>
+          <ProgressBar
+            progress={progress}
+            color="red"
+            unfilledColor="rgba(255, 255, 255, 0.5)"
+            borderColor="#FFF"
+            width={width * 0.9}
+            height={width * 0.015}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  function controllers() {
+    return (
+      <Animated.View style={[styles.controls, {opacity: interpolatedControl}]}>
+        <TouchableHighlight
+          style={{paddingHorizontal: '2%'}}
+          onPress={() => handleSeek(-SEEK_STEP)}
+          onFocus={() => {
+            triggerShowHide();
+            console.log('backward Focus');
+          }}>
+          <Icon name="backward" size={30} color="#FFF" />
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            handlePlayPauseButton();
+          }}
+          onFocus={() => triggerShowHide()}
+          style={{paddingHorizontal: '2%'}}>
+          <Icon name={!paused ? 'pause' : 'play'} size={30} color="#FFF" />
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={{paddingHorizontal: '2%'}}
+          onPress={() => handleSeek(SEEK_STEP)}
+          onFocus={() => {
+            triggerShowHide();
+            console.log('Forward Focus');
+          }}>
+          <Icon name="forward" size={30} color="#FFF" />
+        </TouchableHighlight>
+      </Animated.View>
+    );
+  }
+
   return (
     <View
       style={{
@@ -142,50 +196,8 @@ const VideoComponent = props => {
           onEnd={onEnd}
           resizeMode="cover"
         />
-        <Animated.View
-          style={[styles.controls, {opacity: interpolatedControl}]}>
-          <TouchableHighlight
-            style={{paddingHorizontal: '2%'}}
-            onPress={() => handleSeek(-SEEK_STEP)}
-            onFocus={() => {
-              triggerShowHide();
-              console.log('backward Focus');
-            }}>
-            <Icon name="backward" size={30} color="#FFF" />
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => {
-              handlePlayPauseButton();
-            }}
-            onFocus={() => triggerShowHide()}
-            style={{paddingHorizontal: '2%'}}>
-            <Icon name={!paused ? 'pause' : 'play'} size={30} color="#FFF" />
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={{paddingHorizontal: '2%'}}
-            onPress={() => handleSeek(SEEK_STEP)}
-            onFocus={() => {
-              triggerShowHide();
-              console.log('Forward Focus');
-            }}>
-            <Icon name="forward" size={30} color="#FFF" />
-          </TouchableHighlight>
-        </Animated.View>
-        <View style={styles.progressBarContainer}>
-          <Text style={{color: 'white', paddingRight: '1%'}}>
-            {toTime(Math.floor(progress * duration))}
-          </Text>
-          <View>
-            <ProgressBar
-              progress={progress}
-              color="red"
-              unfilledColor="rgba(255, 255, 255, 0.5)"
-              borderColor="#FFF"
-              width={width * 0.9}
-              height={width * 0.015}
-            />
-          </View>
-        </View>
+        {props.live == false ? controllers() : null}
+        {props.live == false ? progressBar() : null}
       </View>
     </View>
   );

@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './styles';
 import {image_const} from './../../constants/imageConst';
 import {Image, ImageBackground, Text, View} from 'react-native';
 import LiveButton from '../liveButton';
 import SermonsList from '../sermonsList';
+import Overlay from '../overlay';
 
 function HomeScreenContent(props) {
+  const [overlay, setOverlay] = useState(false);
   const {sermonsList, navigateToDetailsScreen, navigation} = props;
+
   return (
     <>
       <ImageBackground
@@ -23,8 +26,10 @@ function HomeScreenContent(props) {
             alignItems: 'center',
             paddingTop: '17%',
           }}>
-          <LiveButton />
-          <View style={styles.sermonsContainer}>
+          <LiveButton setOverlay={setOverlay} />
+          {overlay && <Overlay setOverlay={setOverlay} />}
+          {/* Sermons list is disabled. */}
+          {/* <View style={styles.sermonsContainer}>
             <View style={{paddingHorizontal: '3%'}}>
               <Text style={styles.sermonText}>SERMONS</Text>
             </View>
@@ -33,7 +38,7 @@ function HomeScreenContent(props) {
           <SermonsList
             sermonsList={sermonsList}
             navigateToDetailsScreen={navigateToDetailsScreen}
-          />
+          /> */}
         </View>
       </ImageBackground>
     </>
