@@ -11,7 +11,7 @@ const LiveButton = props => {
       style={[styles.container, liveFocus ? {backgroundColor: 'white'} : null]}>
       <TouchableHighlight
         style={styles.button}
-        hasTVPreferredFocus={true}
+        // hasTVPreferredFocus={true}
         onFocus={() => {
           console.log('Live button focus');
           setLiveFocus(true);
