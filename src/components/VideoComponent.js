@@ -33,6 +33,7 @@ const VideoComponent = props => {
   };
 
   useEffect(() => {
+    console.log('Video componenet - entered.');
     const _tvEventHandler = new TVEventHandler();
     _tvEventHandler.enable(this, _enableTvEventHandler);
     return () => {
@@ -51,6 +52,7 @@ const VideoComponent = props => {
 
   const onLoad = meta => {
     // Get the total video time.
+    console.log('onLoad');
     setDuration(meta.duration);
     setOverlLay(true);
   };
@@ -61,6 +63,7 @@ const VideoComponent = props => {
   };
 
   const onEnd = () => {
+    console.log('onExit');
     setPaused(true);
     props.onExit();
   };
@@ -186,15 +189,15 @@ const VideoComponent = props => {
       <View style={{flex: 1, overflow: 'hidden'}}>
         <Video
           ref={playerRef}
-          source={{uri: props.uri}}
+          source={{uri: `${props.uri}`}}
           style={styles.video}
           fullscreen={true}
           paused={paused}
-          // Call back additions
+          resizeMode="cover"
+          /* Call back additions */
           onLoad={onLoad}
           onProgress={onProgress}
           onEnd={onEnd}
-          resizeMode="cover"
         />
         {props.live == false ? controllers() : null}
         {props.live == false ? progressBar() : null}

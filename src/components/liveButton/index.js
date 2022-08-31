@@ -19,9 +19,8 @@ const LiveButton = props => {
         }}
         onBlur={() => setLiveFocus(false)}
         onPress={() => {
-          // Display overlay component.
           console.log('Live button pressed');
-          props.setOverlay(true);
+          props.setOverlay(true); /* Display overlay component. */
         }}>
         <Text
           style={[

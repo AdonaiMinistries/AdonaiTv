@@ -3,18 +3,15 @@ import {SERMONS_LOADED} from '../actions/state/type';
 import {http_constants} from '../constants/httpConst';
 
 const FetchFromBackend = async (url, token) => {
-  let rsp = null;
   try {
-    console.log(`${http_constants.vimeoBaseUrl}${url}`);
-    rsp = await fetch(`${http_constants.vimeoBaseUrl}${url}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    let r = await fetch(`${http_constants.vimeoBaseUrl}${url}`, {
+      headers: {Authorization: `Bearer ${token}`},
     });
-    return rsp.json();
+    j = await r.json();
+    return j;
   } catch (error) {
-    console.log(error);
-    return null, error;
+    console.error(error);
+    throw error;
   }
 };
 
@@ -23,28 +20,29 @@ const FetchSermons = ctx => {
     http_constants.vimeoProjectUrl,
     ctx.state.appconfig.config.token,
   )
-    .then((rsp, err) => {
+    .then(rsp => {
       if (rsp && ctx.state.sermons.nextpage === rsp.paging.next) {
         return;
       }
-      /**
-       * Set the sermons to the context.
-       * Set the current state.
-       */
+
+      /* State variables update. */
       ctx.dispatch({
         type: 'AddSermons',
-        next: rsp.paging.next,
-        sermons: rsp.data,
+        next: rsp.paging.next /* Update next page. */,
+        sermons: rsp.data /* Sermon data */,
       });
+
       ctx.dispatch({
         type: 'UpdateState',
         state: SERMONS_LOADED,
       });
     })
-    .catch(err => {
-      console.error(err);
+    .catch(e => {
+      console.error(e);
     });
 };
+
+export {FetchSermons};
 
 /**
  * Fetch sermons data from backend.
@@ -94,5 +92,3 @@ const FetchSermons = ctx => {
 //       console.error(err);
 //     });
 // };
-
-export {FetchSermons};

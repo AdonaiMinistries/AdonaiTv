@@ -3,7 +3,7 @@ import {INIT_STATE} from '../actions/state/type';
 
 const initialState = {
   currentState: INIT_STATE,
-  error: nil,
+  error: null,
 };
 
 const stateReducer = (state = initialState, action) => {

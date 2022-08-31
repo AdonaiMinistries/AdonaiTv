@@ -26,8 +26,8 @@ const reducer = (state, action) => {
       return {
         currentState: action.state,
         error: action.error,
-        appconfig: nil,
-        sermons: nil,
+        appconfig: null,
+        sermons: null,
       };
     case 'AddAppConfig':
       return {

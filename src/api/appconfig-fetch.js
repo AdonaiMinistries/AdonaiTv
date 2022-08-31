@@ -1,33 +1,29 @@
 import React, {useContext} from 'react';
-import {CONFIG_LOADED, CONFIG_LOADING} from '../actions/state/type';
+import {
+  CONFIG_LOADED,
+  CONFIG_LOADING,
+  CONFIG_LOAD_FAILED,
+} from '../actions/state/type';
 import {http_constants} from '../constants/httpConst';
 
-const FetchFromBackend = async () => {
-  let rsp = null;
-
+const FetchFromBackend = async ctx => {
   try {
-    rsp = await fetch(http_constants.appConfigUrl);
-    return rsp.json();
+    let rsp = await fetch(http_constants.appConfigUrl);
+    j = await rsp.json();
+    return j;
   } catch (error) {
-    console.log(error);
-    return _, error;
+    console.error(error);
+    throw error;
   }
 };
 
-const FetchAppConfig = ctx => {
-  FetchFromBackend()
-    .then((rsp, err) => {
-      if (err) {
-        /* Update state as error with reason. */
-        ctx.dispatch({
-          type: 'UpdateErrorState',
-          state: CONFIG_LOAD_FAILED,
-          error: err,
-        });
+const FetchAppConfig = async ctx => {
+  FetchFromBackend(ctx)
+    .then(rsp => {
+      /* Update appconfig in ctx */
+      if (rsp === undefined) {
         return;
       }
-
-      /* Update appconfig in ctx */
       ctx.dispatch({
         type: 'AddAppConfig',
         appconfig: rsp,
@@ -38,36 +34,15 @@ const FetchAppConfig = ctx => {
         state: CONFIG_LOADED,
       });
     })
-    .catch(err => {
-      console.error(err);
+    .catch(e => {
+      console.error(e);
+      /* Set error state. */
       ctx.dispatch({
         type: 'UpdateErrorState',
         state: CONFIG_LOAD_FAILED,
-        error: err,
+        error: e,
       });
     });
 };
-// const FetchAppConfig = () => {
-//   const [setAppConfig, getAppConfig] = useAppConfigNew();
-//   const [setAppState, setError, getCurrentState] = useAppState();
-
-//   FetchFromBackend().then((rsp, err) => {
-//     if (err) {
-//       /* Update state as error with reason. */
-//       setError(err);
-//       return;
-//     }
-
-//     /* Update appconfig in ctx */
-//     setAppConfig({
-//       token: rsp.config.token,
-//       liveStream: rsp.config.stream.link,
-//       nextStreamDate: rsp.config.stream.nextStream,
-//     });
-
-//     /* Update App state */
-//     setAppState(CONFIG_LOADED);
-//   });
-// };
 
 export {FetchAppConfig};
