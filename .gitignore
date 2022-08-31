@@ -57,3 +57,13 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+.vscode/launch.json
+/android/app/
+*.code-workspace
+android/app/build.gradle
+android/app/src/main/assets/index.android.bundle
+ios/AdonaiTv.xcodeproj/project.pbxproj
+ios/AdonaiTv.xcodeproj/project.pbxproj
+ios/Podfile.lock
+package-lock.json
+package.json
