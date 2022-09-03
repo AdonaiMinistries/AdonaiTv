@@ -67,3 +67,12 @@ ios/AdonaiTv.xcodeproj/project.pbxproj
 ios/Podfile.lock
 package-lock.json
 package.json
+android/app/build.gradle
+android/app/build.gradle
+android/app/build.gradle
+android/app/src/main/assets/index.android.bundle
+android/gradle.properties
+android/java_pid4942.hprof
+ios/AdonaiTv.xcodeproj/project.pbxproj
+ios/Podfile.lock
+package-lock.json

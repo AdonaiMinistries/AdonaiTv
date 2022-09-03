@@ -8,6 +8,7 @@ import {
   Animated,
   TVEventHandler,
   BackHandler,
+  ActivityIndicator,
 } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,7 +22,9 @@ const VideoComponent = props => {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [overLay, setOverlLay] = useState(true);
+  const [loading, setLoading] = useState(true);
   const animated = useRef(new Animated.Value(0)).current;
+  const r_text = useRef(new Animated.Value(0)).current;
 
   let hideTimeOut = null;
   const {width} = Dimensions.get('screen');
@@ -36,12 +39,26 @@ const VideoComponent = props => {
     console.log('Video componenet - entered.');
     const _tvEventHandler = new TVEventHandler();
     _tvEventHandler.enable(this, _enableTvEventHandler);
+
     return () => {
       console.log('Exiting the video component');
       if (_tvEventHandler) {
         _tvEventHandler.disable();
       }
     };
+  }, []);
+
+  useEffect(() => {
+    /* Added to animate in loop. */
+    if (props.live) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(r_text, {toValue: 1, useNativeDriver: true}),
+          Animated.timing(r_text, {toValue: 0, useNativeDriver: true}),
+        ]),
+      ).start();
+    }
+    return () => {};
   }, []);
 
   const toTime = seconds => {
@@ -55,6 +72,12 @@ const VideoComponent = props => {
     console.log('onLoad');
     setDuration(meta.duration);
     setOverlLay(true);
+    setLoading(false);
+  };
+  const onLoadStart = meta => {
+    // Get the total video time.
+    console.log('onLoadStart');
+    setLoading(true);
   };
 
   const onProgress = progress => {
@@ -181,11 +204,32 @@ const VideoComponent = props => {
     );
   }
 
+  function liveText() {
+    return (
+      <View style={[styles.liveTextContainer]}>
+        {/* RED DOT */}
+        <Animated.View
+          style={[
+            styles.redDot,
+            {
+              opacity: r_text,
+            },
+          ]}></Animated.View>
+        <View style={{width: 2}}></View>
+        <Text style={styles.liveText}>live</Text>
+      </View>
+    );
+  }
+
   return (
     <View
       style={{
         flex: 1,
+        backgroundColor: 'black',
       }}>
+      <View style={styles.loadingContainer}>
+        {loading && <ActivityIndicator color={'red'} size="large" />}
+      </View>
       <View style={{flex: 1, overflow: 'hidden'}}>
         <Video
           ref={playerRef}
@@ -196,17 +240,46 @@ const VideoComponent = props => {
           resizeMode="cover"
           /* Call back additions */
           onLoad={onLoad}
+          onLoadStart={onLoadStart}
           onProgress={onProgress}
           onEnd={onEnd}
         />
-        {props.live == false ? controllers() : null}
-        {props.live == false ? progressBar() : null}
+        {props.live && !loading && liveText()}
+        {!props.live && controllers()}
+        {!props.live && progressBar()}
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    alignItems: 'center',
+    alignContent: 'center',
+    position: 'absolute',
+    top: '50%',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  liveTextContainer: {
+    position: 'absolute',
+    top: '.5%',
+    right: '1%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  redDot: {
+    backgroundColor: 'red',
+    height: 10,
+    width: 10,
+    borderRadius: 10,
+  },
+  liveText: {
+    fontSize: 16,
+    color: 'white',
+    fontFamily: 'Gotham-Regular',
+  },
   video: {
     position: 'absolute',
     top: 0,

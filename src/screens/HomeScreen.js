@@ -36,21 +36,6 @@ const HomeScreen = props => {
     props.navigation.navigate('Details', {id: uri});
   };
 
-  function renderSampleVideoComp() {
-    return (
-      <View style={{height: '100%', width: '100%'}}>
-        <Text style={{color: 'white'}}> SAMPLE TEXT.</Text>
-        <Video
-          source={{
-            url: 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8',
-            resizeMode: 'cover',
-            fullscreen: true,
-          }}
-        />
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
       {(() => {

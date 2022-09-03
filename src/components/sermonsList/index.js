@@ -1,6 +1,51 @@
 import React from 'react';
 import {FlatList, View} from 'react-native';
 import SermonItem from '../sermonItem';
+import styles from './styles';
+
+// const SermonsList = props => {
+//   const flatListRef = React.useRef();
+
+//   function getData() {
+//     var data = [];
+//     props.sermonsList.forEach(i => data.push(i));
+//     return data;
+//   }
+//   function renderItem(item) {
+//     const flatListItem = item.item;
+//     const key = 'flatlist_item_' + flatListItem.index;
+
+//     const img = item.pictures.sizes.find(e => {
+//       if (e.width === 640) {
+//         return e;
+//       }
+//     });
+//     return (
+//       <FocusableHighlight
+//         onPress={() => {}}
+//         onFocus={e => {
+//           // onItemFocus(e, item);
+//         }}
+//         underlayColor={styles.buttonFocusedColor}
+//         style={styles.rowItem}
+//         nativeID={key}
+//         key={key}>
+//         <Text style={styles.text}>{flatListItem.index}</Text>
+//       </FocusableHighlight>
+//     );
+//   }
+
+//   return (
+//     <View style={styles.container}>
+//       <FlatList
+//         ref={flatListRef}
+//         data={getData()}
+//         renderItem={renderItem}
+//         keyExtractor={video => `${video.name + video.uri}`}
+//       />
+//     </View>
+//   );
+// };
 
 const SermonsList = props => {
   // const [modalVisible, setModalVisible] = useState(false);

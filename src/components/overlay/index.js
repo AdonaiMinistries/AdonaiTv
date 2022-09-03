@@ -12,18 +12,18 @@ const Overlay = props => {
   const ctx = React.useContext(StateContext);
 
   React.useEffect(() => {
-    var [isLive, d, h, m, s] = getTimeDiff(
-      `${ctx.state.appconfig.config.stream.nextStream}`,
-    );
+    const interval = setInterval(() => {
+      var [isLive, d, h, m, s] = getTimeDiff(
+        `${ctx.state.appconfig.config.stream.nextStream}`,
+      );
 
-    setLive(isLive);
-    setCountdown({d, h, m, s});
+      setLive(isLive);
+      setCountdown({d, h, m, s});
+    }, 1000);
 
-    console.log('Live set - ', live);
-    console.log('use effect - countdown - ', countdown);
-    console.log('use effect - received - ', d, h, m, s);
-
-    return () => {};
+    return () => {
+      clearTimeout(interval);
+    };
   }, []);
 
   function onExit() {
@@ -34,10 +34,10 @@ const Overlay = props => {
     return (
       <VideoComponent
         live={true}
-        // uri={
-        //   'https://moctobpltc-i.akamaihd.net/hls/live/571329/eight/playlist.m3u8'
-        // }
-        uri={`${ctx.state.appconfig.config.stream.link}`}
+        uri={
+          'https://moctobpltc-i.akamaihd.net/hls/live/571329/eight/playlist.m3u8'
+        }
+        // uri={`${ctx.state.appconfig.config.stream.link}`}
         onExit={onExit}
       />
     );
@@ -75,8 +75,6 @@ function getTimeDiff(dateTime) {
   const recv = new Date(dateTime);
   const now = new Date();
 
-  console.log('Time date received - ', recv.toString());
-
   const diff_d = diffInDays(recv, now);
   const diff_h = diffInHours(recv, now);
   const diff_m = diffInMinutes(recv, now);
@@ -84,7 +82,6 @@ function getTimeDiff(dateTime) {
 
   if (diff_d < 0 || diff_h < 0 || diff_m < 0 || diff_s < 0) {
     /* Live stream date and time already passed. */
-    console.log('Returning from getTimeDiff.');
     return [true, diff_d, diff_h, diff_m, diff_s];
   }
 

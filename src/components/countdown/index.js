@@ -1,8 +1,8 @@
+import moment from 'moment';
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
 function Countdown(props) {
-  console.log('Countdown - ', props);
   return (
     <View style={styles.background}>
       <View style={styles.holder}>
@@ -25,11 +25,6 @@ function Countdown(props) {
             width: '100%',
           }}>
           <View style={styles.countdownBox}>
-            <Text style={styles.textCountdown}>{props.countdown.d}</Text>
-            <Text style={styles.textCountdown}>DAYS</Text>
-          </View>
-          <View style={{width: 5}} />
-          <View style={styles.countdownBox}>
             <Text style={styles.textCountdown}>{props.countdown.h}</Text>
             <Text style={styles.textCountdown}>HOURS</Text>
           </View>
@@ -38,6 +33,11 @@ function Countdown(props) {
             <Text style={styles.textCountdown}>{props.countdown.m}</Text>
             <Text style={styles.textCountdown}>MINUTES</Text>
           </View>
+          <View style={{width: 5}} />
+          <View style={styles.countdownBox}>
+            <Text style={styles.textCountdown}>{props.countdown.s}</Text>
+            <Text style={styles.textCountdown}>SECONDS</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -45,8 +45,9 @@ function Countdown(props) {
 }
 
 function formatDate(d) {
-  const d_str = new Date(d);
-  return d_str.toLocaleString();
+  const d_obj = new Date(d);
+  /* Sunday, September 4, 10:00 AM */
+  return moment(d_obj).format('dddd, MMMM DD, hh:mm a');
 }
 
 const styles = StyleSheet.create({
