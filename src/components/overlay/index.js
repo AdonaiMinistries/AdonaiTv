@@ -34,10 +34,10 @@ const Overlay = props => {
     return (
       <VideoComponent
         live={true}
-        uri={
-          'https://moctobpltc-i.akamaihd.net/hls/live/571329/eight/playlist.m3u8'
-        }
-        // uri={`${ctx.state.appconfig.config.stream.link}`}
+        // uri={
+        //   'https://moctobpltc-i.akamaihd.net/hls/live/571329/eight/playlist.m3u8'
+        // }
+        uri={`${ctx.state.appconfig.config.stream.link}`}
         onExit={onExit}
       />
     );
